@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="script.js"></script>
 </head>
-<body>
+<body onload="init()">
     <header>
         <nav class="navbar primary-container">
             <a href="#"><img class="logo" src="./img/logo.png" alt="Heise Logo"></a>
@@ -19,38 +19,27 @@
         </nav>
         <section class="top-news primary-container">
             <div class="top-news-element">
-                <h2 class="headline top-news-headline">Überholtes Denken</h2>
+                <h2 class="headline top-news-headline">Aktuell</h2>
                 <p class="paragraph">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Neque quasi ipsam saepe fugit, necessitatibus officia expedita .
+                    Täglich erhalten Sie die neusten Informationen zu den Entwicklungen im Tec-Bereich.
                 </p>
             </div>
             <div class="top-news-element">
-                <h2 class="headline top-news-headline">Überholtes Denken</h2>
+                <h2 class="headline top-news-headline">Umfassend</h2>
                 <p class="paragraph">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Neque quasi ipsam saepe fugit, necessitatibus officia expedita .
+                    Hintergrundinformationen aus allen Bereichen und der ganzen Welt.
                 </p>
             </div>
             <div class="top-news-element ">
-                <h2 class="headline top-news-headline">Überholtes Denken</h2>
+                <h2 class="headline top-news-headline">Unabhängig</h2>
                 <p class="paragraph">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Neque quasi ipsam saepe fugit, necessitatibus officia expedita .
+                    Wir setzen auf eine objektive Berichterstattung und geben Ihnen die nackte Wahrheit.
                 </p>
             </div>
         </section>
     </header>
-    <main class="news primary-container">
-        <div class="news-element">
-            <img class="news-element-image" src="./img/beispiel.jpg" alt="News Image">
-            <h3 class="news-element-theme">Thema</h3>
-            <h2 class="headline news-element-headline">Wie gestalte ich mir das Homeoffice ideal für meine Bedüfnisse</h2>
-            <p class="paragraph news-element-paragraph">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi 
-                voluptatem nihil minima dolorem dolor tempora excepturi quasi recusandae molestias
-            </p>
-        </div>
+    <main class="news primary-container" id="news">
+        
     </main>
 </body>
 </html>

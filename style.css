@@ -63,6 +63,7 @@ h2, h3, p {
 
 .top-news-element {
     padding: 0 1.25rem;
+    width: 33.3333%;
     margin: 1.25rem 0;
     border-right: 0.125rem dotted rgba(128, 128, 128, 0.473) ;
     cursor: pointer;
@@ -95,6 +96,11 @@ h2, h3, p {
     border-radius: 0.4rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     cursor: pointer;
+    margin-bottom: 1.25rem;
+}
+
+.news-element:last-child {
+    margin-bottom: 0;
 }
 
 .news-element-image {
@@ -104,7 +110,7 @@ h2, h3, p {
     object-fit: cover;
 }
 
-.news-element-theme {
+.news-element-date {
     color: #1151ab;
     font-weight: 400;
     font-size: 1rem;
