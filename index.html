@@ -12,34 +12,41 @@
     <script src="script.js"></script>
 </head>
 <body onload="init()">
-    <header>
-        <nav class="navbar primary-container">
-            <a href="#"><img class="logo" src="./img/logo.png" alt="Heise Logo"></a>
-            <img class="menu-icon" src="./img/menu.png" alt="Menu Button">
-        </nav>
-        <section class="top-news primary-container">
-            <div class="top-news-element">
-                <h2 class="headline top-news-headline">Aktuell</h2>
-                <p class="paragraph">
-                    Täglich erhalten Sie die neusten Informationen zu den Entwicklungen im Tec-Bereich.
-                </p>
-            </div>
-            <div class="top-news-element">
-                <h2 class="headline top-news-headline">Umfassend</h2>
-                <p class="paragraph">
-                    Hintergrundinformationen aus allen Bereichen und der ganzen Welt.
-                </p>
-            </div>
-            <div class="top-news-element ">
-                <h2 class="headline top-news-headline">Unabhängig</h2>
-                <p class="paragraph">
-                    Wir setzen auf eine objektive Berichterstattung und geben Ihnen die nackte Wahrheit.
-                </p>
-            </div>
-        </section>
+    <section class="weather primary-container">
+        <div><span class="temp"></span><span>°C</span></div>
+        <div id="condition"></div>
+        <div id="city">Berlin</div>
+        <form onsubmit="changeCity(); return false" class="search">
+            <input class="weather-input" type="text" id="selectedCity">
+            <button type="submit"  class="weather-button">
+                <img src="./img/search.png" class="search-icon" alt="Icon Suchen"> 
+                
+            </button>
+        </form>
+    </section>
+    <header class="header primary-container">
+        <a href="#"><img class="logo" src="./img/logo_white.png" alt="Heise Logo"></a>
+        <div>
+            <img class="header-cloud" src="./img/cloud.png" alt="">
+            <h4 class="header-temp"><span class="temp"></span><span>°C</span></h4>
+        </div>
+        
     </header>
+    <nav class="navbar primary-container">
+        <ul class="navbar-ul">
+            <a class="navbar-link link-active" onclick="activateLink(this)" href="#"><li>Aktuell</li></a>
+            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Digitalisierung</li></a>
+            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Hardware</li></a>
+            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Software</li></a>
+            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>IT Security</li></a>
+        </ul>
+    </nav>
     <main class="news primary-container" id="news">
         
     </main>
+    <footer>
+        Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
+        <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"></a>
+    </footer>
 </body>
 </html>
