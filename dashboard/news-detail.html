@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="./styles/news-detail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <title>Detailansicht</title>
+</head>
+<body onload="includeHTML(); initDetailView()">
+    <div w3-include-HTML="templates/header.html"></div>
+    <section class="detail-view primary-container">
+        <div class="navigation-info">
+            <span onclick="openStartpage()" class="navigation-info-startpage">Startseite </span>
+            <img class="detail-view-arrow" src="./img/arrow_right.png" alt="Pfeil nach rechts">
+            <span> Detailansicht</span>
+        </div>
+        <div id="detail-view">
+
+        </div>
+    </section>
+</body>
+</html>
+    
+    
+    

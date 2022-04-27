@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+let news = [];
+let weather = [];
+let start = 0;
+let end = 10;
+let scrollEnd = false;
+let cityInput = 'Berlin';
+
+/**
+ * This function is called first when the page loads and starts the functions initNews and initWeather
+ * 
+ * 
+ */
+function init() {
+    initNews();
+    initWeather();
+}
+
+/**
+ * This function loads the news from the Heise-API and push them into the news Array
+ * 
+ * 
+ */
+async function initNews(){
+    const url = 'https://www.heise.de/extras/frontend/news/';
+    const options = {
+        headers: {
+            'X-Heise-Token': 'zcJulkgE',
+        }
+    };
+    let response = await fetch(url, options);
+    news = await response.json();
+    renderNews();
+    //console.log('news: ', news);
+}
+
+ 
+/**
+ * This function adds the informations from the news Array in the HTML document
+ * 
+ * 
+ */
+function renderNews(){
+
+    for (let i = start; i &lt; end; i++) {
+        const element = news[i];
+        document.getElementById('news').innerHTML += /*html*/`
+
+        &lt;div class="news-element" onclick="openDetailView(${element['id']})">
+            &lt;img class="news-element-image" src="${element['image']['src']}"  alt="${element['image']['alt']}">
+            &lt;div class="news-element-footer">
+                &lt;h3 class="news-element-date">${element['meta']['pubDate']}&lt;/h3>
+                &lt;h2 class="headline news-element-headline">${element['title']}&lt;/h2>
+                &lt;p class="paragraph news-element-paragraph">${element['synopsis']}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+        `;
+    }
+    scrollEnd = false;
+}
+
+/**
+ * This function loads the weather informations from the weatherAPI and push them into the weather Array
+ * 
+ * @param {string} city - This is the city from which the information is loaded
+ */
+async function initWeather(city){
+    if(city){
+        cityInput = city;
+    }
+    let apiKey = '9f2b47ee5924424199d215943222604';
+    let url = (`http://api.weatherapi.com/v1/current.json?key=${apiKey}&amp;q=${cityInput}&amp;lang=de`);
+    let response = await fetch(url);
+    weather = await response.json();
+    console.log('Wetter: ', weather);
+    renderWeather();
+}
+
+
+/**
+ * This function adds the weather informations in the HTML document
+ * 
+ * 
+ */
+function renderWeather(){
+    const temps = document.getElementsByClassName('temp');
+    for (const temp of temps) {
+        temp.innerHTML = weather['current']['temp_c'];
+    }
+    document.getElementById('city').innerHTML = weather['location']['name'];
+    document.getElementById('condition').innerHTML = weather['current']['condition']['text'];
+}
+
+/**
+ * This function is called when the visitor searches for the weather of a particular city
+ * 
+ * 
+ */
+function changeCity(){
+    let selectedCity = document.getElementById('selectedCity');
+    initWeather(selectedCity.value);
+    selectedCity.value = '';
+}
+
+/**
+ * This function is called when the visitor clicks on a news element from the startpage
+ * 
+ * @param {number} id - This is the id from which the detail view is opened
+ */
+function openDetailView(id) {
+    console.log(id);
+}
+
+/**
+ * This function is called by clicking on a link from the navigation and set the border at top and bottom
+ * 
+ * @param {object} clickedElement - This is the element that gets the border at the top and bottom
+ */
+function activateLink(clickedElement){
+    const links = document.getElementsByClassName('navbar-link');
+    for (const link of links) {
+        link.classList.remove('link-active');
+    }
+    clickedElement.classList.add('link-active');
+}
+
+/**
+ * This function is called when the user scroll to bottom and load more news
+ * 
+ * 
+ */
+window.onscroll = function() {
+    if ((window.innerHeight + window.scrollY + 400) >= document.body.offsetHeight &amp;&amp; !scrollEnd) {
+        scrollEnd = true;
+        console.log('unten');
+        if(end &lt; 100){
+            start = start + 10;
+            end = end + 10;
+            renderNews();
+        }  
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateLink">activateLink</a></li><li><a href="global.html#changeCity">changeCity</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initNews">initNews</a></li><li><a href="global.html#initWeather">initWeather</a></li><li><a href="global.html#openDetailView">openDetailView</a></li><li><a href="global.html#renderNews">renderNews</a></li><li><a href="global.html#renderWeather">renderWeather</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Apr 27 2022 11:57:18 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

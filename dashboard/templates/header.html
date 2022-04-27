@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heise Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <script src="script.js"></script>
-</head>
-<body onload="init()">
+
+    
     <section class="weather primary-container">
         <div><span class="temp"></span><span>°C</span></div>
         <div id="condition"></div>
@@ -25,13 +13,14 @@
         </form>
     </section>
     <header class="header primary-container">
-        <a href="#"><img class="logo" src="./img/logo_white.png" alt="Heise Logo"></a>
+        <a onclick="openStartpage()"><img class="logo" src="./img/logo_white.png" alt="Heise Logo"></a>
         <div>
             <img class="header-cloud" src="./img/cloud.png" alt="">
             <h4 class="header-temp"><span class="temp"></span><span>°C</span></h4>
         </div>
         
     </header>
+
     <nav class="navbar primary-container">
         <ul class="navbar-ul">
             <a class="navbar-link link-active" onclick="activateLink(this)" href="#"><li>Aktuell</li></a>
@@ -41,12 +30,3 @@
             <a class="navbar-link" onclick="activateLink(this)" href="#"><li>IT Security</li></a>
         </ul>
     </nav>
-    <main class="news primary-container" id="news">
-        
-    </main>
-    <footer>
-        Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
-        <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"></a>
-    </footer>
-</body>
-</html>

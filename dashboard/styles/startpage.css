@@ -1,0 +1,50 @@
+
+/*-----News Feed-----*/
+
+.news {
+    background-color: #053D61;
+    padding-top: 4rem;
+    padding-bottom: 1.5rem;
+}
+
+.news-element {
+    background-color: white;
+    border-radius: 0.1rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    margin-bottom: 1.25rem;
+}
+
+.news-element:last-child {
+    margin-bottom: 0;
+}
+
+.news-element-image {
+    width: 100%;
+    border-radius: 0.1rem;
+    max-height: 70vh;
+    object-fit: cover;
+}
+
+.news-element-footer {
+    padding: 0 1rem 1rem 1rem;
+}
+
+.news-element-date {
+    color: #1151ab;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 1rem 0;
+}
+
+.news-element-headline{
+    color: #303030;
+    font-weight: 600;
+    font-size: 1.75rem;
+    padding-bottom: 1rem;
+}
+
+.news-element-paragraph {
+    font-size: 1rem;
+    font-weight: 400;
+}

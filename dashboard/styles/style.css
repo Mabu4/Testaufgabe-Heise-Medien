@@ -1,0 +1,43 @@
+*{box-sizing: border-box;}
+
+/*---- Basics -----*/
+
+html{
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+h2, h3, p {
+    margin: 0;
+}
+
+.primary-container {
+    padding-left: 15rem;
+    padding-right: 15rem;
+}
+
+.headline {
+    color: #1151ab;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.paragraph {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0.04rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+
