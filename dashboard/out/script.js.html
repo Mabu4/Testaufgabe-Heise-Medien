@@ -29,10 +29,12 @@
             <pre class="prettyprint source linenums"><code>
 let news = [];
 let weather = [];
+let newsDetails = [];
 let start = 0;
 let end = 10;
 let scrollEnd = false;
 let cityInput = 'Berlin';
+let openedDetailView = false;
 
 /**
  * This function is called first when the page loads and starts the functions initNews and initWeather
@@ -42,6 +44,18 @@ let cityInput = 'Berlin';
 function init() {
     initNews();
     initWeather();
+    openedDetailView = false;
+}
+
+/**
+ * This function is called first when the detail view is opened and starts the functions initNewsDetail and init Weather
+ * 
+ * 
+ */
+function initDetailView(){
+    initNewsDetail();
+    initWeather();
+    openedDetailView = true;
 }
 
 /**
@@ -59,9 +73,7 @@ async function initNews(){
     let response = await fetch(url, options);
     news = await response.json();
     renderNews();
-    //console.log('news: ', news);
 }
-
  
 /**
  * This function adds the informations from the news Array in the HTML document
@@ -72,12 +84,13 @@ function renderNews(){
 
     for (let i = start; i &lt; end; i++) {
         const element = news[i];
+        getSortedDate(element);
         document.getElementById('news').innerHTML += /*html*/`
 
         &lt;div class="news-element" onclick="openDetailView(${element['id']})">
             &lt;img class="news-element-image" src="${element['image']['src']}"  alt="${element['image']['alt']}">
             &lt;div class="news-element-footer">
-                &lt;h3 class="news-element-date">${element['meta']['pubDate']}&lt;/h3>
+                &lt;h3 class="news-element-date">${date}&lt;/h3>
                 &lt;h2 class="headline news-element-headline">${element['title']}&lt;/h2>
                 &lt;p class="paragraph news-element-paragraph">${element['synopsis']}&lt;/p>
             &lt;/div>
@@ -85,6 +98,18 @@ function renderNews(){
         `;
     }
     scrollEnd = false;
+}
+
+/**
+ * This function sorts the delivered date stamp
+ * 
+ * @param {array} element - This is the message where the date needs to be sorted
+ * @returns 
+ */
+function getSortedDate(element){
+    let separateDate = element['meta']['pubDate'].split('T');
+    let unsortedDate = separateDate[0].split('-');
+    return date = unsortedDate[2] + '.' + unsortedDate[1] + '.' + unsortedDate[0];
 }
 
 /**
@@ -100,10 +125,8 @@ async function initWeather(city){
     let url = (`http://api.weatherapi.com/v1/current.json?key=${apiKey}&amp;q=${cityInput}&amp;lang=de`);
     let response = await fetch(url);
     weather = await response.json();
-    console.log('Wetter: ', weather);
     renderWeather();
 }
-
 
 /**
  * This function adds the weather informations in the HTML document
@@ -115,8 +138,14 @@ function renderWeather(){
     for (const temp of temps) {
         temp.innerHTML = weather['current']['temp_c'];
     }
-    document.getElementById('city').innerHTML = weather['location']['name'];
-    document.getElementById('condition').innerHTML = weather['current']['condition']['text'];
+    const citys = document.getElementsByClassName('city');
+    for (const city of citys) {
+        city.innerHTML = weather['location']['name'];
+    }
+    const conditions = document.getElementsByClassName('condition');
+    for (const condition of conditions) {
+        condition.innerHTML = weather['current']['condition']['text'];
+    }
 }
 
 /**
@@ -124,19 +153,96 @@ function renderWeather(){
  * 
  * 
  */
-function changeCity(){
-    let selectedCity = document.getElementById('selectedCity');
-    initWeather(selectedCity.value);
-    selectedCity.value = '';
+function changeCity(type){
+    if(type == 'desktop'){
+        let selectedCity = document.getElementById('selectedCity');
+        initWeather(selectedCity.value);
+        selectedCity.value = '';
+    }
+    if(type == 'mobile'){
+        let selectedCity = document.getElementById('selectedCityMobile');
+        initWeather(selectedCity.value);
+        selectedCity.value = '';
+    }    
 }
 
 /**
  * This function is called when the visitor clicks on a news element from the startpage
  * 
- * @param {number} id - This is the id from which the detail view is opened
+ * @param {number} id - This is the id from which news the detail view is opened
  */
 function openDetailView(id) {
-    console.log(id);
+    localStorage.setItem("id", id);
+    window.open('news-detail.html',"_self");
+}
+
+/**
+ * This function loads the detailed news from the heise API with the saved id in the local storage
+ * 
+ * 
+ */
+async function initNewsDetail(){
+    let id = localStorage.getItem("id");
+    const url = `https://www.heise.de/extras/frontend/news/${id}`;
+    const options = {
+        headers: {
+            'X-Heise-Token': 'zcJulkgE',
+        }
+    };
+    let response = await fetch(url, options);
+    newsDetails = await response.json();
+    renderNewsDetail();
+}
+
+/**
+ * This function adds the news informations in the HTML document
+ * 
+ * 
+ */
+function renderNewsDetail(){
+    getSortedDate(newsDetails);
+    document.getElementById('detail-view').innerHTML = /*html*/`
+        &lt;h2 class="detail-view-title">${newsDetails['title']}&lt;/h2>
+        &lt;p class="detail-view-infos">
+            &lt;span>von: &lt;span>${newsDetails['meta']['author']}&lt;/span>&lt;/span>
+            &lt;span>${date}&lt;/span>
+        &lt;/p>
+        &lt;p class="detail-view-synopsis"> 
+            ${newsDetails['synopsis']}
+        &lt;/p>
+        &lt;img class="detail-view-image" src="${newsDetails['image']['src']}" alt="${newsDetails['image']['alt']}">
+        &lt;p class="detail-view-content">${newsDetails['content']}&lt;/p>
+    `;
+}
+
+/**
+ * This function opens the startpage
+ * 
+ * 
+ */
+function openStartpage() {
+    window.open('index.html',"_self");
+}
+
+/**
+ * This function opens the menu of the mobile version
+ * 
+ * 
+ */
+function openMobileMenu(){
+    document.getElementById('weather').classList.add('d-none');
+    document.getElementById('mobile-menu').classList.remove('d-none');
+    
+}
+
+/**
+ * This function closes the menu of the mobile Version
+ * 
+ * 
+ */
+function closeMobileMenu(){
+    document.getElementById('weather').classList.remove('d-none');
+    document.getElementById('mobile-menu').classList.add('d-none');
 }
 
 /**
@@ -160,14 +266,50 @@ function activateLink(clickedElement){
 window.onscroll = function() {
     if ((window.innerHeight + window.scrollY + 400) >= document.body.offsetHeight &amp;&amp; !scrollEnd) {
         scrollEnd = true;
-        console.log('unten');
-        if(end &lt; 100){
+        if(end &lt; 100 &amp;&amp; !openedDetailView){
             start = start + 10;
             end = end + 10;
             renderNews();
         }  
     }
-};</code></pre>
+};
+
+/**
+ * This function is used to load html templates in a document
+ * 
+ * @returns
+ */
+function includeHTML() {
+    var z, i, elmnt, file, xhttp;
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i &lt; z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        elmnt.innerHTML = this.responseText;
+                    }
+                    if (this.status === 404) {
+                        elmnt.innerHTML = "Page not found.";
+                    }
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("w3-include-html");
+                    includeHTML();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+        }
+    }
+}</code></pre>
         </article>
     </section>
 
@@ -177,13 +319,13 @@ window.onscroll = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateLink">activateLink</a></li><li><a href="global.html#changeCity">changeCity</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initNews">initNews</a></li><li><a href="global.html#initWeather">initWeather</a></li><li><a href="global.html#openDetailView">openDetailView</a></li><li><a href="global.html#renderNews">renderNews</a></li><li><a href="global.html#renderWeather">renderWeather</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateLink">activateLink</a></li><li><a href="global.html#changeCity">changeCity</a></li><li><a href="global.html#closeMobileMenu">closeMobileMenu</a></li><li><a href="global.html#getSortedDate">getSortedDate</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initDetailView">initDetailView</a></li><li><a href="global.html#initNews">initNews</a></li><li><a href="global.html#initNewsDetail">initNewsDetail</a></li><li><a href="global.html#initWeather">initWeather</a></li><li><a href="global.html#openDetailView">openDetailView</a></li><li><a href="global.html#openMobileMenu">openMobileMenu</a></li><li><a href="global.html#openStartpage">openStartpage</a></li><li><a href="global.html#renderNews">renderNews</a></li><li><a href="global.html#renderNewsDetail">renderNewsDetail</a></li><li><a href="global.html#renderWeather">renderWeather</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Apr 27 2022 11:57:18 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 01 2022 16:41:05 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

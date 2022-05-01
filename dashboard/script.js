@@ -72,7 +72,12 @@ function renderNews(){
     scrollEnd = false;
 }
 
-
+/**
+ * This function sorts the delivered date stamp
+ * 
+ * @param {array} element - This is the message where the date needs to be sorted
+ * @returns 
+ */
 function getSortedDate(element){
     let separateDate = element['meta']['pubDate'].split('T');
     let unsortedDate = separateDate[0].split('-');
@@ -92,7 +97,6 @@ async function initWeather(city){
     let url = (`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityInput}&lang=de`);
     let response = await fetch(url);
     weather = await response.json();
-    console.log('Wetter: ', weather);
     renderWeather();
 }
 
@@ -159,11 +163,14 @@ async function initNewsDetail(){
     };
     let response = await fetch(url, options);
     newsDetails = await response.json();
-    console.log('Detail: ', newsDetails);
     renderNewsDetail();
 }
 
-
+/**
+ * This function adds the news informations in the HTML document
+ * 
+ * 
+ */
 function renderNewsDetail(){
     getSortedDate(newsDetails);
     document.getElementById('detail-view').innerHTML = /*html*/`
@@ -180,19 +187,31 @@ function renderNewsDetail(){
     `;
 }
 
-
+/**
+ * This function opens the startpage
+ * 
+ * 
+ */
 function openStartpage() {
     window.open('index.html',"_self");
 }
 
-
+/**
+ * This function opens the menu of the mobile version
+ * 
+ * 
+ */
 function openMobileMenu(){
     document.getElementById('weather').classList.add('d-none');
     document.getElementById('mobile-menu').classList.remove('d-none');
     
 }
 
-
+/**
+ * This function closes the menu of the mobile Version
+ * 
+ * 
+ */
 function closeMobileMenu(){
     document.getElementById('weather').classList.remove('d-none');
     document.getElementById('mobile-menu').classList.add('d-none');
