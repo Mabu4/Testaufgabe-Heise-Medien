@@ -1,16 +1,16 @@
 
-    
-    <section class="weather primary-container">
+<div class="header-container">
+    <section class="primary-container weather" id="weather">
         <div><span class="temp"></span><span>°C</span></div>
-        <div id="condition"></div>
-        <div id="city">Berlin</div>
-        <form onsubmit="changeCity(); return false" class="search">
+        <div class="condition"></div>
+        <div class="city">Berlin</div>
+        <form onsubmit="changeCity('desktop'); return false" class="search search-desktop">
             <input class="weather-input" type="text" id="selectedCity">
             <button type="submit"  class="weather-button">
                 <img src="./img/search.png" class="search-icon" alt="Icon Suchen"> 
-                
             </button>
         </form>
+        <img class="mobile-menu-icon" src="./img/menu-white.png" onclick="openMobileMenu()"></img>
     </section>
     <header class="header primary-container">
         <a onclick="openStartpage()"><img class="logo" src="./img/logo_white.png" alt="Heise Logo"></a>
@@ -21,12 +21,42 @@
         
     </header>
 
-    <nav class="navbar primary-container">
-        <ul class="navbar-ul">
-            <a class="navbar-link link-active" onclick="activateLink(this)" href="#"><li>Aktuell</li></a>
-            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Digitalisierung</li></a>
-            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Hardware</li></a>
-            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Software</li></a>
-            <a class="navbar-link" onclick="activateLink(this)" href="#"><li>IT Security</li></a>
-        </ul>
+    <nav class="navbar">
+        <div class="primary-container">
+            <ul class="navbar-ul">
+                <a class="navbar-link link-active" onclick="activateLink(this)" href="#"><li>Aktuell</li></a>
+                <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Digitalisierung</li></a>
+                <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Hardware</li></a>
+                <a class="navbar-link" onclick="activateLink(this)" href="#"><li>Software</li></a>
+                <a class="navbar-link" onclick="activateLink(this)" href="#"><li>IT Security</li></a>
+            </ul>
+        </div>
     </nav>
+    <nav class="mobile-menu d-none" id="mobile-menu">
+        <!-- <div class="mobile-menu-header">
+            
+        </div> -->
+        <div class="weather-informations">
+            <div><span class="temp"></span><span>°C</span></div>
+            <div class="condition"></div>
+            <div class="city">Berlin</div>
+            <img class="mobile-menu-icon" src="./img/menu-white.png" onclick="closeMobileMenu()"></img>
+        </div>
+        <div class="mobile-search-container">
+            <form onsubmit="changeCity('mobile'); return false" class="search">
+                <input class="weather-input weather-input-mobile" type="text" id="selectedCityMobile">
+                <button type="submit"  class="weather-button weather-button-mobile">
+                    <img src="./img/search-white.png" class="search-icon" alt="Icon Suchen"> 
+                </button>
+            </form>
+        </div>
+        <ul class="navbar-mobile-ul">
+            <a class="navbar-mobile-link mobile-link-active" onclick="activateMobileLink(this)" href="#"><li>Aktuell</li></a>
+            <a class="navbar-mobile-link" onclick="activateMobileLink(this)" href="#"><li>Digitalisierung</li></a>
+            <a class="navbar-mobile-link" onclick="activateMobileLink(this)" href="#"><li>Hardware</li></a>
+            <a class="navbar-mobile-link" onclick="activateMobileLink(this)" href="#"><li>Software</li></a>
+            <a class="navbar-mobile-link" onclick="activateMobileLink(this)" href="#"><li>IT Security</li></a>
+        </ul>
+        
+    </nav>
+</div>

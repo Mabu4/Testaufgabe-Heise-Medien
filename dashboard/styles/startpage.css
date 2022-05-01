@@ -48,3 +48,16 @@
     font-size: 1rem;
     font-weight: 400;
 }
+
+@media(max-width: 40em){
+    .news{
+        background-color: rgb(240, 240, 240);
+    }
+    .news-element-image {
+        max-height: 50vh;
+    }
+    .news-element-headline{
+        font-size: 1.4rem;
+        padding-bottom: 1rem;
+    }
+}

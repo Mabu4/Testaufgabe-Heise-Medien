@@ -45,7 +45,6 @@ async function initNews(){
     let response = await fetch(url, options);
     news = await response.json();
     renderNews();
-    //console.log('news: ', news);
 }
  
 /**
@@ -57,12 +56,13 @@ function renderNews(){
 
     for (let i = start; i < end; i++) {
         const element = news[i];
+        getSortedDate(element);
         document.getElementById('news').innerHTML += /*html*/`
 
         <div class="news-element" onclick="openDetailView(${element['id']})">
             <img class="news-element-image" src="${element['image']['src']}"  alt="${element['image']['alt']}">
             <div class="news-element-footer">
-                <h3 class="news-element-date">${element['meta']['pubDate']}</h3>
+                <h3 class="news-element-date">${date}</h3>
                 <h2 class="headline news-element-headline">${element['title']}</h2>
                 <p class="paragraph news-element-paragraph">${element['synopsis']}</p>
             </div>
@@ -70,6 +70,13 @@ function renderNews(){
         `;
     }
     scrollEnd = false;
+}
+
+
+function getSortedDate(element){
+    let separateDate = element['meta']['pubDate'].split('T');
+    let unsortedDate = separateDate[0].split('-');
+    return date = unsortedDate[2] + '.' + unsortedDate[1] + '.' + unsortedDate[0];
 }
 
 /**
@@ -99,8 +106,14 @@ function renderWeather(){
     for (const temp of temps) {
         temp.innerHTML = weather['current']['temp_c'];
     }
-    document.getElementById('city').innerHTML = weather['location']['name'];
-    document.getElementById('condition').innerHTML = weather['current']['condition']['text'];
+    const citys = document.getElementsByClassName('city');
+    for (const city of citys) {
+        city.innerHTML = weather['location']['name'];
+    }
+    const conditions = document.getElementsByClassName('condition');
+    for (const condition of conditions) {
+        condition.innerHTML = weather['current']['condition']['text'];
+    }
 }
 
 /**
@@ -108,10 +121,17 @@ function renderWeather(){
  * 
  * 
  */
-function changeCity(){
-    let selectedCity = document.getElementById('selectedCity');
-    initWeather(selectedCity.value);
-    selectedCity.value = '';
+function changeCity(type){
+    if(type == 'desktop'){
+        let selectedCity = document.getElementById('selectedCity');
+        initWeather(selectedCity.value);
+        selectedCity.value = '';
+    }
+    if(type == 'mobile'){
+        let selectedCity = document.getElementById('selectedCityMobile');
+        initWeather(selectedCity.value);
+        selectedCity.value = '';
+    }    
 }
 
 /**
@@ -145,11 +165,12 @@ async function initNewsDetail(){
 
 
 function renderNewsDetail(){
+    getSortedDate(newsDetails);
     document.getElementById('detail-view').innerHTML = /*html*/`
         <h2 class="detail-view-title">${newsDetails['title']}</h2>
         <p class="detail-view-infos">
             <span>von: <span>${newsDetails['meta']['author']}</span></span>
-            <span>${newsDetails['meta']['pubDate']}</span>
+            <span>${date}</span>
         </p>
         <p class="detail-view-synopsis"> 
             ${newsDetails['synopsis']}
@@ -162,6 +183,19 @@ function renderNewsDetail(){
 
 function openStartpage() {
     window.open('index.html',"_self");
+}
+
+
+function openMobileMenu(){
+    document.getElementById('weather').classList.add('d-none');
+    document.getElementById('mobile-menu').classList.remove('d-none');
+    
+}
+
+
+function closeMobileMenu(){
+    document.getElementById('weather').classList.remove('d-none');
+    document.getElementById('mobile-menu').classList.add('d-none');
 }
 
 /**

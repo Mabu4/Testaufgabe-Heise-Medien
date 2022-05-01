@@ -18,6 +18,37 @@ h2, h3, p {
 .primary-container {
     padding-left: 15rem;
     padding-right: 15rem;
+    max-width: 87.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media(max-width: 70em){
+    .primary-container {
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+}
+
+@media(max-width: 60em){
+    .primary-container {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
+@media(max-width:50em){
+    .primary-container{
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+}
+
+@media(max-width:45em){
+    .primary-container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
 .headline {

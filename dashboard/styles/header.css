@@ -2,13 +2,16 @@
 
 /*---- Header---*/
 
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.header-container {
     background-image: url(../img/header1.png);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
     padding-top: 4rem;
     padding-bottom: 4rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
@@ -44,6 +47,7 @@
     height: 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: white;
     font-weight: 300;
 }
@@ -79,8 +83,16 @@
     width: 0.75rem;
 }
 
+.mobile-menu-icon {
+    display: none;
+}
+
 
 /*--- Navigation ----*/
+
+.navbar {
+    background-color: white;
+}
 
 .navbar-ul {
     display: flex;
@@ -112,3 +124,130 @@
     border-top: 0.2rem solid #12263C;
 }
 
+/*-----Mobile menu------*/
+
+.mobile-menu-icon {
+    width: 1.125rem;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    position: fixed;
+    z-index: 2;
+    backdrop-filter: blur(0.3rem);
+    background-color: #12263c24;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 0;
+    padding: 0;
+    animation: spread ease-in-out 175ms both;
+}
+
+.mobile-menu-header{
+    display: flex;
+    padding-bottom: 1rem;
+    justify-content: flex-end;
+}
+
+.weather-informations {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.mobile-search-container {
+    padding-top: 1rem;
+}
+
+.weather-input-mobile {
+    width: 100%;
+    height: 2.5rem;
+    background-color: transparent;
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+.weather-input-mobile:active {
+    background-color: transparent;
+}
+
+.weather-input-mobile:focus {
+    background-color: transparent;
+}
+
+.weather-button-mobile {
+    height: 2.5rem;
+    background-color: transparent;
+}
+
+.navbar-mobile-ul {
+    margin: 0;
+    padding: 2rem 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar-mobile-link {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 0.5px solid transparent;
+}
+
+.navbar-mobile-link:hover {
+    border-bottom: 0.5px solid white;
+}
+
+@keyframes spread {
+    from {
+        width: 0;
+        padding: 0;
+    }
+    to {
+        padding: 1rem 1rem;
+        max-width: 21rem;
+        width: 100%;
+        
+    }
+    
+}
+
+@media(max-width: 40em){
+    .search-desktop {
+        display: none;
+    }
+    .mobile-menu-icon {
+        display: unset;
+    }
+    .header {
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+    .logo {
+        width: 13rem;
+        cursor: pointer;
+        display: block;
+    }
+    .header-cloud {
+        height: 3rem;
+    }
+    .header-temp {
+        margin-top: -2.5rem;
+        font-size: 1.35rem;
+    }
+    .navbar{
+        display: none;
+    }
+}
+
+.d-none {
+    display: none;
+}

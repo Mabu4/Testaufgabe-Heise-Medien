@@ -45,6 +45,7 @@
     font-weight: 600;
     line-height: 1.3;
     padding-bottom: 1.5rem;
+    font-size: 1.125rem;
 }
 
 .detail-view-image {
@@ -54,4 +55,25 @@
 .detail-view-content {
     padding-top: 1.5rem;
     line-height: 1.3;
+    font-size: 1.125rem;
+}
+
+@media(max-width: 40em){
+    .detail-view-title {
+        font-weight: 400;
+        font-size: 1.5rem;
+        padding-top: 3rem;
+        line-height: 1.2;
+    }
+    .detail-view-synopsis {
+
+        line-height: 1.2;
+        padding-bottom: 1.25rem;
+        font-size: 1rem;
+    }
+    .detail-view-content {
+        padding-top: 1.25rem;
+        line-height: 1.2;
+        font-size: 1rem;
+    }
 }
