@@ -9,9 +9,7 @@ let cityInput = 'Berlin';
 let openedDetailView = false;
 
 /**
- * This function is called first when the page loads and starts the functions initNews and initWeather
- * 
- * 
+ * This function is called first when the page loads and starts the functions initNews and initWeather 
  */
 function init() {
     initNews();
@@ -21,8 +19,6 @@ function init() {
 
 /**
  * This function is called first when the detail view is opened and starts the functions initNewsDetail and init Weather
- * 
- * 
  */
 function initDetailView(){
     initNewsDetail();
@@ -32,8 +28,6 @@ function initDetailView(){
 
 /**
  * This function loads the news from the Heise-API and push them into the news Array
- * 
- * 
  */
 async function initNews(){
     const url = 'https://www.heise.de/extras/frontend/news/';
@@ -49,8 +43,6 @@ async function initNews(){
  
 /**
  * This function adds the informations from the news Array in the HTML document
- * 
- * 
  */
 function renderNews(){
 
@@ -74,7 +66,6 @@ function renderNews(){
 
 /**
  * This function sorts the delivered date stamp
- * 
  * @param {array} element - This is the message where the date needs to be sorted
  * @returns 
  */
@@ -86,7 +77,6 @@ function getSortedDate(element){
 
 /**
  * This function loads the weather informations from the weatherAPI and push them into the weather Array
- * 
  * @param {string} city - This is the city from which the information is loaded
  */
 async function initWeather(city){
@@ -102,8 +92,6 @@ async function initWeather(city){
 
 /**
  * This function adds the weather informations in the HTML document
- * 
- * 
  */
 function renderWeather(){
     const temps = document.getElementsByClassName('temp');
@@ -122,8 +110,6 @@ function renderWeather(){
 
 /**
  * This function is called when the visitor searches for the weather of a particular city
- * 
- * 
  */
 function changeCity(type){
     if(type == 'desktop'){
@@ -140,7 +126,6 @@ function changeCity(type){
 
 /**
  * This function is called when the visitor clicks on a news element from the startpage
- * 
  * @param {number} id - This is the id from which news the detail view is opened
  */
 function openDetailView(id) {
@@ -150,8 +135,6 @@ function openDetailView(id) {
 
 /**
  * This function loads the detailed news from the heise API with the saved id in the local storage
- * 
- * 
  */
 async function initNewsDetail(){
     let id = localStorage.getItem("id");
@@ -168,8 +151,6 @@ async function initNewsDetail(){
 
 /**
  * This function adds the news informations in the HTML document
- * 
- * 
  */
 function renderNewsDetail(){
     getSortedDate(newsDetails);
@@ -189,8 +170,6 @@ function renderNewsDetail(){
 
 /**
  * This function opens the startpage
- * 
- * 
  */
 function openStartpage() {
     window.open('index.html',"_self");
@@ -198,8 +177,6 @@ function openStartpage() {
 
 /**
  * This function opens the menu of the mobile version
- * 
- * 
  */
 function openMobileMenu(){
     document.getElementById('weather').classList.add('d-none');
@@ -209,8 +186,6 @@ function openMobileMenu(){
 
 /**
  * This function closes the menu of the mobile Version
- * 
- * 
  */
 function closeMobileMenu(){
     document.getElementById('weather').classList.remove('d-none');
@@ -219,7 +194,6 @@ function closeMobileMenu(){
 
 /**
  * This function is called by clicking on a link from the navigation and set the border at top and bottom
- * 
  * @param {object} clickedElement - This is the element that gets the border at the top and bottom
  */
 function activateLink(clickedElement){
@@ -232,8 +206,6 @@ function activateLink(clickedElement){
 
 /**
  * This function is called when the user scroll to bottom and load more news
- * 
- * 
  */
 window.onscroll = function() {
     if ((window.innerHeight + window.scrollY + 400) >= document.body.offsetHeight && !scrollEnd) {
@@ -248,37 +220,18 @@ window.onscroll = function() {
 
 /**
  * This function is used to load html templates in a document
- * 
  * @returns
  */
-function includeHTML() {
-    var z, i, elmnt, file, xhttp;
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-            /* Make an HTTP request using the attribute value as the file name: */
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState === 4) {
-                    if (this.status === 200) {
-                        elmnt.innerHTML = this.responseText;
-                    }
-                    if (this.status === 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("w3-include-html");
-                    includeHTML();
-                }
-            }
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /* Exit the function: */
-            return;
+ async function includeHTML() {
+    let includeElements = document.querySelectorAll('[w3-include-html]');
+    for (let i = 0; i < includeElements.length; i++) {
+        const element = includeElements[i];
+        file = element.getAttribute("w3-include-html"); // "includes/header.html"
+        let resp = await fetch(file);
+        if (resp.ok) {
+            element.innerHTML = await resp.text();
+        } else {
+            element.innerHTML = 'Page not found';
         }
     }
 }
